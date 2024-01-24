@@ -40,6 +40,7 @@ pipeline {
         stage('Deploy to GKE') {
             steps{
                 echo 'Deploying...'
+                step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'kafka.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
                 step([$class: 'KubernetesEngineBuilder', projectId: env.PROJECT_ID, clusterName: env.CLUSTER_NAME, location: env.LOCATION, manifestPattern: 'server-gateway.yaml', credentialsId: env.CREDENTIALS_ID, verifyDeployments: true])
                 echo "Deployment finished !"
             }
